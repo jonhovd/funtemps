@@ -7,6 +7,8 @@ import (
 
 // Definerer flag-variablene i hoved-"scope"
 var fahr float64
+var cel float64
+var kel float64
 var out string
 var funfacts string
 
@@ -24,6 +26,9 @@ func init() {
 	// Definerer og initialiserer flagg-variablene
 	flag.Float64Var(&fahr, "F", 0.0, "temperatur i grader fahrenheit")
 	// Du må selv definere flag-variablene for "C" og "K"
+	flag.Float64Var(&cel, "C", 0.0, "temperatur i grader celsius")
+	flag.Float64Var(&kel, "K", 0.0, "temperatur i grader Kelvin")
+
 	flag.StringVar(&out, "out", "C", "beregne temperatur i C - celsius, F - farhenheit, K- Kelvin")
 	flag.StringVar(&funfacts, "funfacts", "sun", "\"fun-facts\" om sun - Solen, luna - Månen og terra - Jorden")
 	// Du må selv definere flag-variabelen for -t flagget, som bestemmer

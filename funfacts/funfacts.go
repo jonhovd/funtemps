@@ -1,4 +1,4 @@
-package funfucts
+package funfacts
 
 /**
   Implementer funfacts-funksjon:
@@ -13,3 +13,11 @@ package funfucts
       Terra []string
   }
 */
+
+func GetFunFacts() []string
+
+type FunFacts struct {
+	Sun   []string
+	Luna  []string
+	Terra []string
+}
