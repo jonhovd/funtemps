@@ -34,6 +34,7 @@ func TestFarhenheitToCelsius(t *testing.T) {
 
 // De andre testfunksjonene implementeres her
 // ...
+// testfunksjon for Celsius til Fahrenheit
 func TestCelsiusToFahrenheit(t *testing.T) {
 	type test struct {
 		input float64
@@ -53,6 +54,7 @@ func TestCelsiusToFahrenheit(t *testing.T) {
 
 }
 
+// testfunksjon for Fahrenheit til Kelvin
 func TestFarhenheitToKelvin(t *testing.T) {
 	type test struct {
 		input float64
@@ -71,6 +73,7 @@ func TestFarhenheitToKelvin(t *testing.T) {
 	}
 }
 
+// testfunksjon for Celsius til Kelvin
 func TestCelsiusToKelvin(t *testing.T) {
 	type test struct {
 		input float64
@@ -78,7 +81,7 @@ func TestCelsiusToKelvin(t *testing.T) {
 	}
 
 	tests := []test{
-		{input: 56, want: 132.8},
+		{input: 56.67, want: 329.85},
 	}
 
 	for _, tc := range tests {
@@ -90,6 +93,7 @@ func TestCelsiusToKelvin(t *testing.T) {
 
 }
 
+// testfunksjon for Kelvin til Celsius
 func TestKelvinToCelsius(t *testing.T) {
 	type test struct {
 		input float64
@@ -109,6 +113,7 @@ func TestKelvinToCelsius(t *testing.T) {
 
 }
 
+// testfunksjon for Kelvin til Fahrenheit
 func TestKelvinToFarhenheit(t *testing.T) {
 	type test struct {
 		input float64

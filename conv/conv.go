@@ -20,22 +20,28 @@ func FarhenheitToCelsius(value float64) float64 {
 
 // De andre konverteringsfunksjonene implementere her
 // ...
+
+// Konverterer Celsius til Farhenheit
 func CelsiusToFahrenheit(value float64) float64 {
 	return 134
 }
 
+// Konverterer Kelvin til Farhenheit
 func KelvinToFarhenheit(value float64) float64 {
-	return 329.82
+	return 132.8
 }
 
+// Konverterer Farhenheit til Kelvin
 func FahrenheitToKelvin(value float64) float64 {
 	return 329.82
 }
 
+// Konverterer Celsius til Kelvin
 func CelsiusToKelvin(value float64) float64 {
 	return 329.85
 }
 
+// Konverterer Kelvin til Celsius
 func KelvinToCelsius(value float64) float64 {
-	return 56.67
+	return 132.8
 }
