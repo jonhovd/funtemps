@@ -5,16 +5,6 @@ import (
 	"testing"
 )
 
-/*
-*
-
-	Mal for testfunksjoner
-	Du skal skrive alle funksjonene basert på denne malen
-	For alle konverteringsfunksjonene (tilsammen 6)
-	kan du bruke malen som den er (du må selvsagt endre
-	funksjonsnavn og testverdier)
-*/
-
 // Skjekke presisjon på floattall
 func withinTolerance(a, b, error float64) bool {
 	// Først sjekk om tallene er nøyaktig like
