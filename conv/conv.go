@@ -17,7 +17,7 @@ func FarhenheitToCelsius(fahr float64) float64 {
 
 // Konverterer Celsius til Farhenheit
 func CelsiusToFahrenheit(cel float64) float64 {
-	var farhenheit = cel*(9/5) + 32
+	var farhenheit = cel*9/5 + 32
 	return farhenheit
 }
 
