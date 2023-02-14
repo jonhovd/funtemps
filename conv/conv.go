@@ -19,8 +19,8 @@ func CelsiusToFahrenheit(cel float64) float64 {
 // Konverterer Kelvin til Farhenheit
 // Farhrenheit = (Kelvin - 273.15)*(9/5) + 32
 func KelvinToFarhenheit(kel float64) float64 {
-	var fahr = (kel-273.15)*9/5 + 32
-	return fahr
+	var farhenheit = (kel-273.15)*9/5 + 32
+	return farhenheit
 }
 
 // Konverterer Farhenheit til Kelvin
