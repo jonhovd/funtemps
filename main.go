@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"strings"
 
 	"github.com/jonhovd/funtemps/conv"
 )
@@ -12,20 +13,12 @@ var fahr float64
 var cel float64
 var kel float64
 var out string
-var funfacts string
+
+//var funfacts string
 
 // Bruker init (som anbefalt i dokumentasjonen) for å sikre at flagvariablene
 // er initialisert.
 func init() {
-
-	/*
-	   Her er eksempler på hvordan man implementerer parsing av flagg.
-	   For eksempel, kommando
-	       funtemps -F 0 -out C
-	   skal returnere output: 0°F er -17.78°C
-	*/
-
-	// Definerer og initialiserer flagg-variablene
 
 	//flag-variablen for F
 	flag.Float64Var(&fahr, "F", 0.0, "temperatur i grader fahrenheit")
@@ -37,6 +30,7 @@ func init() {
 	flag.StringVar(&out, "out", "C", "beregne temperatur i C - celsius, F - farhenheit, K- Kelvin")
 
 	//flag.StringVar(&funfacts, "funfacts", "sun", "\"fun-facts\" om sun - Solen, luna - Månen og terra - Jorden")
+
 	// Du må selv definere flag-variabelen for -t flagget, som bestemmer
 	// hvilken temperaturskala skal brukes når funfacts skal vises
 
@@ -46,76 +40,77 @@ func main() {
 
 	flag.Parse()
 
-	/**
-	    Her må logikken for flaggene og kall til funksjoner fra conv og funfacts
-	    pakkene implementeres.
-
-	    Det er anbefalt å sette opp en tabell med alle mulige kombinasjoner
-	    av flagg. flag-pakken har funksjoner som man kan bruke for å teste
-	    hvor mange flagg og argumenter er spesifisert på kommandolinje.
-
-	        fmt.Println("len(flag.Args())", len(flag.Args()))
-			    fmt.Println("flag.NFlag()", flag.NFlag())
-
-	    Enkelte kombinasjoner skal ikke være gyldige og da må kontrollstrukturer
-	    brukes for å utelukke ugyldige kombinasjoner:
-	    -F, -C, -K kan ikke brukes samtidig
-	    disse tre kan brukes med -out, men ikke med -funfacts
-	    -funfacts kan brukes kun med -t
-	    ...
-	    Jobb deg gjennom alle tilfellene. Vær obs på at det er en del sjekk
-	    implementert i flag-pakken og at den vil skrive ut "Usage" med
-	    beskrivelsene av flagg-variablene, som angitt i parameter fire til
-	    funksjonene Float64Var og StringVar
-	*/
-
-	// Her er noen eksempler du kan bruke i den manuelle testingen
-	fmt.Println(fahr, cel, kel, out, funfacts)
-
-	fmt.Println("len(flag.Args())", len(flag.Args()))
-	fmt.Println("flag.NFlag()", flag.NFlag())
-
-	fmt.Println(isFlagPassed("out"))
-
-	/* Eksempel på enkel logikk
+	// Logikken for flaggene og kall til funksjonene fra conv:
 	if out == "C" && isFlagPassed("F") {
-		// Kalle opp funksjonen FahrenheitToCelsius(fahr), som da
-		// skal returnere °C
-		//fmt.Println("0°F er -17.78°C")
-	}
-
-	*/
-
-	if out == "C" && isFlagPassed("F") {
-		celsius := conv.FarhenheitToCelsius(fahr)
-		fmt.Printf("%.2f°F is %.2f°C\n", fahr, celsius)
+		var celsius = conv.FarhenheitToCelsius(fahr)
+		//fmt.Printf("%#v°F is %.2f°C\n", fahr, celsius)
+		fmt.Printf("%.2f°F is %s°C\n", fahr, formatNumber(celsius))
 	}
 
 	if out == "F" && isFlagPassed("C") {
-		fahrenheit := conv.CelsiusToFahrenheit(cel)
-		fmt.Printf("%.2f°C is %.2f°F\n", cel, fahrenheit)
+		var fahrenheit = conv.CelsiusToFahrenheit(cel)
+		//fmt.Printf("%#v°C is %.2f°F\n", cel, fahrenheit)
+		fmt.Printf("%.2f°C is %s°F\n", cel, formatNumber(fahrenheit))
 	}
 
 	if out == "K" && isFlagPassed("C") {
-		kelvin := conv.CelsiusToKelvin(cel)
-		fmt.Printf("%.2f°C is %.2f°K\n", cel, kelvin)
+		var kelvin = conv.CelsiusToKelvin(cel)
+		//fmt.Printf("%#v°C is %.2f°K\n", cel, kelvin)
+		fmt.Printf("%.2f°C is %s°K\n", cel, formatNumber(kelvin))
 	}
 
 	if out == "C" && isFlagPassed("K") {
-		celsius := conv.KelvinToCelsius(kel)
-		fmt.Printf("%.2f°K is %.2f°C\n", kel, celsius)
+		var celsius = conv.KelvinToCelsius(kel)
+		//fmt.Printf("%#v°K is %.2f°C\n", kel, celsius)
+		fmt.Printf("%.2f°K is %s°C\n", kel, formatNumber(celsius))
 	}
 
 	if out == "F" && isFlagPassed("K") {
-		fahrenheit := conv.KelvinToFarhenheit(kel)
-		fmt.Printf("%.2f°K is %.2f°F\n", kel, fahrenheit)
+		var fahrenheit = conv.KelvinToFarhenheit(kel)
+		//fmt.Printf("%#v°K is %.2f°F\n", kel, fahrenheit)
+		fmt.Printf("%.2f°K is %s°F\n", kel, formatNumber(fahrenheit))
 	}
 
 	if out == "K" && isFlagPassed("F") {
-		kelvin := conv.FahrenheitToKelvin(fahr)
-		fmt.Printf("%.2f°F is %.2f°K\n", fahr, kelvin)
+		var kelvin = conv.FahrenheitToKelvin(fahr)
+		//fmt.Printf("%#v°F is %.2f°K\n", fahr, kelvin)
+		fmt.Printf("%.2f°F is %s°K\n", fahr, formatNumber(kelvin))
 	}
 
+}
+
+func formatNumber(number float64) string {
+	numStr := fmt.Sprintf("%.2f", number)
+	numParts := strings.Split(numStr, ".")
+	intPart := numParts[0]
+	intPartLen := len(intPart)
+
+	// Remove trailing zeros after decimal point
+	decPart := strings.TrimRight(numParts[1], "0")
+	if decPart == "" {
+		return intPart
+	}
+
+	// Format integer part with thousands separators
+	if intPartLen <= 3 {
+		return intPart + "." + decPart
+	}
+
+	start := intPartLen % 3
+	if start == 0 {
+		start = 3
+	}
+
+	var result string
+	for i, digit := range intPart {
+		if i == start {
+			result += " "
+			start += 3
+		}
+		result += string(digit)
+	}
+
+	return result + "." + decPart
 }
 
 // Funksjonen sjekker om flagget er spesifisert på kommandolinje
