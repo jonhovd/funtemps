@@ -14,10 +14,11 @@ package funfacts
   }
 */
 
-func GetFunFacts() []string
+/*func GetFunFacts() []string
 
 type FunFacts struct {
 	Sun   []string
 	Luna  []string
 	Terra []string
 }
+*/
